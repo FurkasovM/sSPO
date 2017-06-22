@@ -1,0 +1,16 @@
+#pragma once
+#include "Parser.h"
+
+
+class Interpr
+{
+
+
+public:
+	std::vector<std::string> get_reverse_polish_notation(std::vector<para_token> code);
+
+private:
+	std::vector<std::string> getSimpleRPN(std::vector<para_token> code);
+
+
+};
