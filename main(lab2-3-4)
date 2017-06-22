@@ -1,0 +1,48 @@
+#include "Lexer.h"
+#include "Parser.h"
+#include "Interpr.h"
+
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	std::cout << "Практическое задание №2-3-4\n\n";
+	std::cout << "Введите имя файла с разрешением .txt \n(Внимание: файл должен быть в папке с программой)\n";
+	std::string file;
+	std::cin >> file;
+
+	Lexer lexer;
+	std::vector<para_token> tokens = lexer.getTokens(file);
+
+	if (!tokens.empty())
+	{
+		std::cout << "\nЛексер не выявил ошибок.";
+
+		Parser parser;
+		bool correct = parser.checkSyntax(tokens);
+		if (correct)
+		{
+			std::cout << "\nПарсер не выявил ошибок.\n";
+		}
+		else
+		{
+			std::cout << "\nПарсер выявил ошибку.\n";
+		}
+	}
+	else
+	{
+		std::cout << "\nЛексер выявил ошибку.\n";
+	}
+
+	Interpr interpreter;
+	std::vector<std::string> rpn = interpreter.get_reverse_polish_notation(tokens);
+
+	std::cout << "\n";
+	for (int i = 0; i < rpn.size(); ++i)
+	{
+		std::cout << std::left << std::setw(3) << i + 1 << rpn[i] << "\n";
+	}
+
+	std::cout << "\n";
+	system("pause");
+	return 0;
+}
